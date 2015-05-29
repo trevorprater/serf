@@ -12,13 +12,12 @@ public class RSwoosh
 {
 	public static List<Record> execute(MatcherMerger mm, List<Record> recordsOrig)
 	{
-
 		List<Record> records = new ArrayList<Record>(recordsOrig);
 		List<Record> rprime = new ArrayList<Record>();
 
 		while (!records.isEmpty())
 		{
-			//System.out.println("R size: " + records.size() + ", R' size: " + rprime.size());
+			System.out.println("R size: " + records.size() + ", R' size: " + rprime.size());
 		
 			// Remove one element from R
 			Record current = records.iterator().next();
@@ -44,8 +43,6 @@ public class RSwoosh
 				records.add(mm.merge(current, buddy));
 			}
 		}
-
 		return rprime;
 	}
-
 }

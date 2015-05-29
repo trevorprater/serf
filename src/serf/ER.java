@@ -21,7 +21,6 @@ import java.util.Properties;
 import java.io.*;
 import java.lang.reflect.*;
 
-
 public class ER {
 	static String fileSource = "dd2006.csv";
 	static String configFile = "example.conf";
@@ -76,25 +75,19 @@ public class ER {
 		return false;
 	}
 	
-	
 	private static void runRSwoosh() throws SAXException, IOException, ParserConfigurationException
 	{
 		GetRecordsFromCSV ds = new GetRecordsFromCSV(fileSource);
-
-
 		ds.parseCSV();
 
 		List<Record> records = ds.getAllRecords();
 		Class[] mmPartypes = new Class[1];
 		try{
-			//Can we assume MatcherMerger's contructor will always take in RecordFactory object? 
-			//TODO: JOHNSON
 			mmPartypes[0] = Properties.class;
 		    Constructor mmConstructor = matcherMerger.getConstructor(mmPartypes);
 			Object matcherMerger = mmConstructor.newInstance(properties);
             System.out.println("Running");
             List<Record> result = RSwoosh.execute((serf.data.MatcherMerger)matcherMerger, records);
-
 
             for(Record r : result) {
                 System.out.println(r);
@@ -102,18 +95,6 @@ public class ER {
             }
             System.out.println("Running RSwoosh on " + records.size() + " records.");
             System.out.println("After running RSwoosh, there are " + result.size() + " records.");
-//			if ((outputFile = properties.getProperty("OutputFile")) != null)
-//			{
-//				FileWriter fw = new FileWriter(outputFile);
-//				fw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-//				XMLifyYahooData.openRecordSet(fw);
-//				for (Record r : result) {
-//
-//					XMLifyYahooData.serializeRecord(r, fw);
-//				}
-//				XMLifyYahooData.closeRecordSet(fw);
-//				fw.close();
-//			}
 
 		}
 		catch(Exception e){
