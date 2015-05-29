@@ -1,8 +1,6 @@
 package serf.data;
 
 
-
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +10,7 @@ import serf.utils.HashMix;
 /**
  * 
  * Records are the fundamental object operated on by all of the SERF algorithms.
- * Records can contain attributies and confidences.  Not all SERF algorithms make use of Record confidences.  
+ * Records can contain attributes and confidences.  Not all SERF algorithms make use of Record confidences.
  *
  */
 public class Record

@@ -1,6 +1,8 @@
 package serf.deduplication;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import serf.data.MatcherMerger;
@@ -8,10 +10,11 @@ import serf.data.Record;
 
 public class RSwoosh
 {
-	public static Set<Record> execute(MatcherMerger mm, Set<Record> recordsOrig)
+	public static List<Record> execute(MatcherMerger mm, List<Record> recordsOrig)
 	{
-		Set<Record> records = new HashSet<Record>(recordsOrig);
-		Set<Record> rprime = new HashSet<Record>();
+
+		List<Record> records = new ArrayList<Record>(recordsOrig);
+		List<Record> rprime = new ArrayList<Record>();
 
 		while (!records.isEmpty())
 		{
@@ -41,10 +44,8 @@ public class RSwoosh
 				records.add(mm.merge(current, buddy));
 			}
 		}
-		
-		
+
 		return rprime;
 	}
-	
-	
+
 }

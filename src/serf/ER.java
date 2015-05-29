@@ -2,6 +2,7 @@ package serf;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,7 +13,7 @@ import serf.data.Record;
 import serf.data.SimpleRecordFactory;
 import serf.data.YahooMatcherMerger;
 import serf.data.io.XMLifyYahooData;
-import serf.data.storage.impl.GetRecordsFromYahooXML;
+import serf.data.storage.impl.GetRecordsFromCSV;
 import serf.deduplication.RSwoosh;
 import serf.test.TestException;
 
@@ -22,7 +23,7 @@ import java.lang.reflect.*;
 
 
 public class ER {
-	static String fileSource = "products.xml";
+	static String fileSource = "dd2006.csv";
 	static String configFile = "example.conf";
 	static String outputFile = null;
 	static Class matcherMerger;
@@ -48,7 +49,7 @@ public class ER {
 		if (matcherMerger == null){
 			throw (new TestException("No MatcherMerger Class specified!"));
 		}
-		if (checkMatcherMergerInterface(matcherMerger) != true){
+		if (!checkMatcherMergerInterface(matcherMerger)){
 			throw (new TestException("Given MatcherMerger class does not implement SimpleMatcherMerger interface!"));
 			
 		}
@@ -60,9 +61,9 @@ public class ER {
 		Class[] interfaces = testClass.getInterfaces();
 		Class superClass = testClass.getSuperclass();
 		try{
-			for (int i = 0; i < interfaces.length; i++){
-				if (interfaces[i] == Class.forName(MATCHER_MERGER_INTERFACE)){
-					return true;					
+			for (Class anInterface : interfaces) {
+				if (anInterface == Class.forName(MATCHER_MERGER_INTERFACE)) {
+					return true;
 				}
 			}
 			if (superClass!= null && checkMatcherMergerInterface(superClass)){
@@ -77,10 +78,13 @@ public class ER {
 	
 	
 	private static void runRSwoosh() throws SAXException, IOException, ParserConfigurationException
-	{	
-		GetRecordsFromYahooXML yds = new GetRecordsFromYahooXML(fileSource);
-		yds.parseXML();
-		Set<Record> records = yds.getAllRecords();		
+	{
+		GetRecordsFromCSV ds = new GetRecordsFromCSV(fileSource);
+
+
+		ds.parseCSV();
+
+		List<Record> records = ds.getAllRecords();
 		Class[] mmPartypes = new Class[1];
 		try{
 			//Can we assume MatcherMerger's contructor will always take in RecordFactory object? 
@@ -88,22 +92,28 @@ public class ER {
 			mmPartypes[0] = Properties.class;
 		    Constructor mmConstructor = matcherMerger.getConstructor(mmPartypes);
 			Object matcherMerger = mmConstructor.newInstance(properties);
-			System.out.println("Running RSwoosh on " + records.size() + " records.");
-			Set<Record> result = RSwoosh.execute((serf.data.MatcherMerger)matcherMerger, records);
-			System.out.println("After running RSwoosh, there are " + result.size() + " records.");
-			
-			if ((outputFile = properties.getProperty("OutputFile")) != null)
-			{
-				FileWriter fw = new FileWriter(outputFile);
-				fw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-				XMLifyYahooData.openRecordSet(fw);
-				for (Record r : result) {
-					
-					XMLifyYahooData.serializeRecord(r, fw);
-				}	
-				XMLifyYahooData.closeRecordSet(fw);
-				fw.close();
-			}
+            System.out.println("Running");
+            List<Record> result = RSwoosh.execute((serf.data.MatcherMerger)matcherMerger, records);
+
+
+            for(Record r : result) {
+                System.out.println(r);
+                System.out.println();
+            }
+            System.out.println("Running RSwoosh on " + records.size() + " records.");
+            System.out.println("After running RSwoosh, there are " + result.size() + " records.");
+//			if ((outputFile = properties.getProperty("OutputFile")) != null)
+//			{
+//				FileWriter fw = new FileWriter(outputFile);
+//				fw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+//				XMLifyYahooData.openRecordSet(fw);
+//				for (Record r : result) {
+//
+//					XMLifyYahooData.serializeRecord(r, fw);
+//				}
+//				XMLifyYahooData.closeRecordSet(fw);
+//				fw.close();
+//			}
 
 		}
 		catch(Exception e){
