@@ -35,7 +35,7 @@ directory), and is released under the BSD licence (see LICENSE).
 Requirements
 ----------------------------------------------------------------------
 
-- Java 6.0+
+- JDK6+
 
 - The MatcherMerger class of the example uses the CMU secondstring
   library (http://secondstring.sourceforge.net/) to measure the
