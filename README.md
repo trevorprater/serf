@@ -5,7 +5,7 @@
 ---------------------------------------------------------------------
 **A modified/updated branch of SERF (@trevorprater May 2015).**
 
-**Original work done by [Stanford InfoLab](http://infolab.stanford.edu/) (April 2006).**
+*Original work done by [Stanford InfoLab](http://infolab.stanford.edu/) (April 2006).*
 
 
 Introduction
