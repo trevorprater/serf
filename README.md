@@ -3,7 +3,7 @@
 ---------------------------------------------------------------------
 [SERF: Stanford Entity Resolution Framework](http://infolab.stanford.edu/serf)
 ---------------------------------------------------------------------
-*A modified/updated branch of SERF (@trevorprater May 2015).*
+**A modified/updated branch of SERF (@trevorprater May 2015).**
 
 Original work done by Stanford InfoLab (April 2006).
 
