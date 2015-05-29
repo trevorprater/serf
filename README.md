@@ -18,7 +18,7 @@ or products).
 
 This release of the SERF software provides an implementation of the
 R-Swoosh algorithm described in reference [1]. The algorithm takes as
-input a dataset of records (in XML) and a "MatcherMerger" class that
+input a dataset of records (in CSV) and a "MatcherMerger" class that
 implements functions to match and merge pairs of records, and returns
 a dataset of resolved records.
 
@@ -35,7 +35,7 @@ directory), and is released under the BSD licence (see LICENSE).
 Requirements
 ----------------------------------------------------------------------
 
-- A Java 6.0 (Standard Edition) virtual machine.
+- Java 6.0+
 
 - The MatcherMerger class of the example uses the CMU secondstring
   library (http://secondstring.sourceforge.net/) to measure the
@@ -88,12 +88,7 @@ From the [SERF_INSTALL] directory, create a "classes" directory:
     
  Then compile the SERF code:
 
-    javac -cp .:../libs/secondstring-20030401.jar -d ../classes @sources
-    
- To run the example using the compiled classes:
- 
-    cd ../example
-    java -cp "../libs/secondstring-20030401.jar:../classes" serf.ER example.conf
+    javac -cp ../libs  -d ../classes @sources
     
 
 IntelliJ IDEA
@@ -109,6 +104,5 @@ References
     Omar Benjelloun, Hector Garcia-Molina, Jeff Jonas, Qi Su, Jennifer
     Widom. Stanford University Technical Report, 2005.
     Available at: http://dbpubs.stanford.edu:8090/pub/2005-5
-
 
    
