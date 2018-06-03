@@ -106,3 +106,7 @@ References
     Available at: http://dbpubs.stanford.edu:8090/pub/2005-5
 
    
+NOTES
+-----------------------------------------------------------------------
+
+Yes, I'm well aware that neural networks have rendered this software obsolete.
