@@ -104,3 +104,4 @@ References
     Omar Benjelloun, Hector Garcia-Molina, Jeff Jonas, Qi Su, Jennifer
     Widom. Stanford University Technical Report, 2005.
     Available at: http://dbpubs.stanford.edu:8090/pub/2005-5
+
